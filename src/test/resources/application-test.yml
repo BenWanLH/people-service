@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:people-test;DB_CLOSE_DELAY=-1
+  grpc:
+    server:
+      port: 0

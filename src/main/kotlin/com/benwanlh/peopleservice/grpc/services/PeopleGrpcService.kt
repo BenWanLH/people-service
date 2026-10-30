@@ -21,7 +21,6 @@ import com.benwanlh.peopleservice.enums.Role
 import com.benwanlh.people.v1.Person as PersonProto
 import com.benwanlh.peopleservice.grpc.mappers.toProto
 import com.benwanlh.peopleservice.grpc.wrappers.grpcCall
-import com.benwanlh.peopleservice.repositories.entities.Person
 import com.benwanlh.peopleservice.services.PersonService
 import org.springframework.stereotype.Service
 import java.time.LocalDate

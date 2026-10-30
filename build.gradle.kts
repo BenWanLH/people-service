@@ -67,6 +67,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-grpc-server-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+	testImplementation("io.mockk:mockk:1.14.11")
+	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -84,4 +86,5 @@ allOpen {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	systemProperty("spring.profiles.active", "test")
 }
