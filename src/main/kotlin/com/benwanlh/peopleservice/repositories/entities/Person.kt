@@ -19,6 +19,10 @@ import java.time.LocalDate
 @Table(name = "person")
 class Person(
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null,
+
     @Column(name = "name", nullable = false)
     var name: String,
 
@@ -39,8 +43,4 @@ class Person(
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     var roles: MutableSet<Role> = mutableSetOf(),
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
 )
