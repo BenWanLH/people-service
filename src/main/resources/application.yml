@@ -4,8 +4,18 @@ spring:
   grpc:
     server:
       port: 9090
+    client:
+      channel:
+        movies:
+          target: static://localhost:9091
   datasource:
     url: jdbc:h2:file:./data/people
   jpa:
     hibernate:
       ddl-auto: validate
+  graphql:
+    graphiql:
+      enabled: true
+
+server:
+  port: 8081

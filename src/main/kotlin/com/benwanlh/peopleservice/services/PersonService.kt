@@ -1,5 +1,7 @@
 package com.benwanlh.peopleservice.services
 
+import com.benwanlh.movies.v1.MovieCreditsServiceGrpc
+import com.benwanlh.movies.v1.deleteCreditsByPersonRequest
 import com.benwanlh.peopleservice.dtos.PersonDetails
 import com.benwanlh.peopleservice.exceptions.PersonNotFoundException
 import com.benwanlh.peopleservice.repositories.PersonRepository
@@ -15,6 +17,8 @@ import org.springframework.validation.annotation.Validated
 @Transactional
 class PersonService(
     private val personRepository: PersonRepository,
+    private val movieCreditServiceStub:  MovieCreditsServiceGrpc.MovieCreditsServiceBlockingStub
+
 ) {
 
     fun getPersonById(id: Long): Person =
@@ -62,6 +66,8 @@ class PersonService(
         if (!personRepository.existsById(id)) throw PersonNotFoundException(id)
 
         personRepository.deleteById(id)
+        movieCreditServiceStub.deleteCreditsByPerson(deleteCreditsByPersonRequest {this.personId = id})
+
     }
 
     private fun String?.blankToNull(): String? = this?.trim()?.takeIf { it.isNotEmpty() }

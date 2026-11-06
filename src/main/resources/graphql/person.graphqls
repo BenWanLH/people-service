@@ -1,0 +1,34 @@
+type Query {
+    person(id: ID!): Person
+    people(roles: [Role!], name: String): [Person!]!
+}
+
+type Mutation {
+    createPerson(personDetail: PersonDetail!): Person!
+    updatePerson(id: ID!, personDetail: PersonDetail!): Person!
+    deletePerson(id: ID!): Boolean!
+}
+
+type Person @key(fields: "id") {
+    id: ID!
+    name: String!
+    roles: [Role!]!
+    birthDate: String
+    bio: String
+    photoUrl: String
+}
+
+enum Role {
+    ACTOR
+    DIRECTOR
+    WRITER
+    CREATOR
+}
+
+input PersonDetail {
+    name: String!
+    roles: [Role!]!
+    birthDate: String
+    bio: String
+    photoUrl: String
+}

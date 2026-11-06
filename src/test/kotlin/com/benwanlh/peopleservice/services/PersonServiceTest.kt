@@ -1,10 +1,14 @@
 package com.benwanlh.peopleservice.services
 
+import com.benwanlh.movies.v1.MovieCreditsServiceGrpc
 import com.benwanlh.peopleservice.dtos.PersonDetails
 import com.benwanlh.peopleservice.exceptions.PersonNotFoundException
 import com.benwanlh.peopleservice.repositories.PersonRepository
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -13,7 +17,8 @@ import java.util.Optional
 class PersonServiceTest {
 
     private val personRepository = mockk<PersonRepository>()
-    private val personService = PersonService(personRepository)
+    private val movieCreditServiceStub = mockk<MovieCreditsServiceGrpc.MovieCreditsServiceBlockingStub>(relaxed = true)
+    private val personService = PersonService(personRepository, movieCreditServiceStub)
 
     @Test
     fun `getPersonById throws PersonNotFoundException when id does not exist`() {
@@ -60,5 +65,16 @@ class PersonServiceTest {
         assertThrows<PersonNotFoundException> {
             personService.updatePerson(99L, PersonDetails(name = "test person"))
         }
+    }
+
+    @Test
+    fun `deletePerson removes the person and their credits in movie-service`() {
+        every { personRepository.existsById(1L) } returns true
+        every { personRepository.deleteById(1L) } just Runs
+
+        personService.deletePerson(1L)
+
+        verify { personRepository.deleteById(1L) }
+        verify { movieCreditServiceStub.deleteCreditsByPerson(match { it.personId == 1L }) }
     }
 }
