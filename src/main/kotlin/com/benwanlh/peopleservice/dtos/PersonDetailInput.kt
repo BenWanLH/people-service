@@ -8,13 +8,11 @@ data class PersonDetailInput(
     val roles: List<Role>,
     val birthDate: String? = null,
     val bio: String? = null,
-    val photoUrl: String? = null,
 ) {
     fun toPersonDetails() = PersonDetails(
         name = name,
         birthDate = birthDate?.takeIf { it.isNotBlank() }?.let(LocalDate::parse),
         bio = bio,
-        photoUrl = photoUrl,
         roles = roles.toSet(),
     )
 }

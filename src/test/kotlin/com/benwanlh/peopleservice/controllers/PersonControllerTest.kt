@@ -126,7 +126,7 @@ class PersonControllerTest @Autowired constructor(
             """
             mutation {
               createPerson(personDetail: {
-                name: "  Joe Pantoliano  ", roles: [ACTOR], birthDate: "1951-09-12", bio: "  ", photoUrl: ""
+                name: "  Joe Pantoliano  ", roles: [ACTOR], birthDate: "1951-09-12", bio: "  ",
               }) { name birthDate bio photoUrl }
             }
             """

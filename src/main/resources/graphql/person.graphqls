@@ -30,5 +30,4 @@ input PersonDetail {
     roles: [Role!]!
     birthDate: String
     bio: String
-    photoUrl: String
 }

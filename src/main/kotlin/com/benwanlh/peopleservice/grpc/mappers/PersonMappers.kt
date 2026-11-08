@@ -11,5 +11,5 @@ fun Person.toProto(): PersonProto = person {
     roles += this@toProto.roles.map { RoleProto.valueOf(it.name) }
     this@toProto.bio?.let { bio = it }
     this@toProto.birthDate?.let { birthDate = it.toString() }
-    this@toProto.photoUrl?.let { photoUrl = it }
+    this@toProto.photoUrl()?.let { photoUrl = it }
 }

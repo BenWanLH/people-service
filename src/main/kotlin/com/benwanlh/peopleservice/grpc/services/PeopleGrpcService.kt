@@ -40,7 +40,6 @@ class PeopleGrpcService(
             name = request.name,
             birthDate =if (request.hasBirthDate()) LocalDate.parse(request.birthDate) else null,
             bio = request.bio,
-            photoUrl = request.photoUrl,
             roles = request.rolesList.map { Role.valueOf(it.name) }.toSet())
 
         return personService.createPerson(personDetails).toProto()
@@ -74,7 +73,6 @@ class PeopleGrpcService(
         val personDetails = PersonDetails(
             name = request.name,
             bio = request.bio.trim(),
-            photoUrl = request.photoUrl.trim(),
             birthDate = if (!request.birthDate.isEmpty()) LocalDate.parse(request.birthDate) else null,
             roles = request.rolesList.map { Role.valueOf(it.name) }.toMutableSet())
 

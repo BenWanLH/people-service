@@ -10,6 +10,7 @@ import org.springframework.graphql.data.federation.EntityMapping
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
+import org.springframework.graphql.data.method.annotation.SchemaMapping
 import org.springframework.stereotype.Controller
 
 @Controller
@@ -22,6 +23,9 @@ class PersonController(
         val peopleById = personService.getAllPersonsByIds(idList.toSet()).associateBy { it.id }
         return idList.map { peopleById[it] }
     }
+
+    @SchemaMapping(typeName = "Person", field = "photoUrl")
+    fun photoUrl(person: Person): String? = person.photoUrl()
 
     @QueryMapping
     fun person(@Argument id: Long): Person? =

@@ -32,8 +32,8 @@ class Person(
     @Column(name = "bio")
     var bio: String? = null,
 
-    @Column(name = "photo_url")
-    var photoUrl: String? = null,
+    @Column(name = "photo_filename")
+    var photoFilename: String? = null,
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
@@ -43,4 +43,6 @@ class Person(
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     var roles: MutableSet<Role> = mutableSetOf(),
-)
+) {
+    fun photoUrl(): String? = photoFilename?.let { "/people/$id/photo?v=$it" }
+}

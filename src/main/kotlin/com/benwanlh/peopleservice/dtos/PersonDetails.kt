@@ -15,7 +15,5 @@ data class PersonDetails(
 
     val bio: String? = null,
 
-    val photoUrl: String? = null,
-
     val roles: Set<Role> = emptySet(),
 )
